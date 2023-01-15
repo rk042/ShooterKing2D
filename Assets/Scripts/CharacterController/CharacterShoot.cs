@@ -14,9 +14,6 @@ public class CharacterShoot : CharacterController
     [SerializeField] private int defaultCapacity=10;
     [SerializeField] private int maxSize=20;
 
-    /// <summary>
-    /// Awake is called when the script instance is being loaded.
-    /// </summary>
     private void Awake()
     {
         bulletPool=new ObjectPool<Bullet>(createFunc,actionOnGet,actionOnRelease,actionOnDestroy,collectionCheck,defaultCapacity,maxSize);
@@ -47,16 +44,22 @@ public class CharacterShoot : CharacterController
 
     public override void UpdateBase()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Shoot();
         }
     }
-
+    const float totalTime=0.1f;
+    float timeCount=0;
     private void Shoot()
     {
-        bulletPool.Get(out Bullet bullet);
-        var directionToShoot=(gunEndPoint.position-gunStartPoint.position).normalized;
-        bullet.SetBulletDirection(directionToShoot);
+        if (timeCount>totalTime)
+        {
+            timeCount=0;
+            bulletPool.Get(out Bullet bullet);
+            var directionToShoot=(MouseController.points-gunEndPoint.position).normalized;
+            bullet.SetBulletDirection(directionToShoot);
+        }
+        timeCount+=Time.deltaTime;
     }
 }
