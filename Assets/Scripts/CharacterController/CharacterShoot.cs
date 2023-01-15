@@ -49,15 +49,16 @@ public class CharacterShoot : CharacterController
             Shoot();
         }
     }
-    const float totalTime=0.1f;
+    const float totalTime=0.2f;
     float timeCount=0;
     private void Shoot()
     {
-        if (timeCount>totalTime)
+        var directionToShoot=(MouseController.points-gunEndPoint.position).normalized;
+        if (timeCount>totalTime && ((transform.localScale.x<0 && directionToShoot.x<0) || (transform.localScale.x>0 && directionToShoot.x>0)))
         {
             timeCount=0;
             bulletPool.Get(out Bullet bullet);
-            var directionToShoot=(MouseController.points-gunEndPoint.position).normalized;
+            Debug.Log($"dir {directionToShoot}");
             bullet.SetBulletDirection(directionToShoot);
         }
         timeCount+=Time.deltaTime;
