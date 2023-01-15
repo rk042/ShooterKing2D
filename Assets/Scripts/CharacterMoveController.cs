@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterMoveController : MonoBehaviour
+public class CharacterMoveController : CharacterController
 {
     [SerializeField] float jumpForce;
     [SerializeField] float moveSpeed;
@@ -25,14 +25,7 @@ public class CharacterMoveController : MonoBehaviour
     {
         CharacterController.Event_IsCharactCollideToGround-=IsCollideToGround;  
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        MoveControll();
-        JumpControll();
-    }
-
+    
     private void JumpControll()
     {
         if (Input.GetKeyDown(KeyCode.Space) && canJump)
@@ -60,4 +53,9 @@ public class CharacterMoveController : MonoBehaviour
         canJump=e.isHitToGround;
     }
 
+    public override void UpdateBase()
+    {
+        MoveControll();
+        JumpControll();
+    }
 }

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharacterColliderController : MonoBehaviour
+public class CharacterColliderController : CharacterController
 {
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.collider.CompareTag(Tags.Ground.ToString()))
         {     
-            CharacterController.Event_IsCharactCollideToGround?.Invoke(this,new CharacterCollideToGround
+            Event_IsCharactCollideToGround?.Invoke(this,new CharacterCollideToGround
             {
                 isHitToGround=true
             });
@@ -18,7 +18,7 @@ public class CharacterColliderController : MonoBehaviour
     {
         if (other.collider.CompareTag(Tags.Ground.ToString()))
         {     
-            CharacterController.Event_IsCharactCollideToGround?.Invoke(this,new CharacterCollideToGround
+            Event_IsCharactCollideToGround?.Invoke(this,new CharacterCollideToGround
             {
                 isHitToGround=false
             });
