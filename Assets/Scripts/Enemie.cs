@@ -7,6 +7,7 @@ public class Enemie : MonoBehaviour
     [SerializeField] float moveSpeed=10;
     CharacterController characterController;
     private bool isStartGame;
+    [SerializeField] ParticleSystem ps;
 
     private void Awake()
     {
@@ -40,9 +41,14 @@ public class Enemie : MonoBehaviour
         if (other.collider.CompareTag(Tags.Ground.ToString()))
         {
             isStartGame=true;
+            UIManager.ShakeScreen();
         }
         else
         {
+            UIManager.UpdateScore();
+            UIManager.ShakeScreen();
+            UIManager.VFXEnemie();
+            Instantiate(ps,transform.position,Quaternion.identity);
             Destroy(gameObject);
         }
     }

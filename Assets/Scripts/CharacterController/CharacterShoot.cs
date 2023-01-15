@@ -54,8 +54,9 @@ public class CharacterShoot : CharacterController
     private void Shoot()
     {
         var directionToShoot=(MouseController.points-gunEndPoint.position).normalized;
-        if (timeCount>totalTime && ((transform.localScale.x<0 && directionToShoot.x<0) || (transform.localScale.x>0 && directionToShoot.x>0)))
+        if (timeCount>totalTime )//&& ((transform.localScale.x<0 && directionToShoot.x<0) || (transform.localScale.x>0 && directionToShoot.x>0)))
         {
+            UIManager.VFXSoundPlayer();
             timeCount=0;
             bulletPool.Get(out Bullet bullet);
             Debug.Log($"dir {directionToShoot}");
