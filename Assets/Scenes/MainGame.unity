@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.12731749, g: 0.13414757, b: 0.1210787, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,7 +185,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181213125}
-  m_LocalRotation: {x: -0.22975291, y: -0.0000000187227, z: -0.0000000044198294, w: 0.973249}
+  m_LocalRotation: {x: -0.22975291, y: 0.0000000187227, z: 0.0000000044198294, w: 0.973249}
   m_LocalPosition: {x: 9.17, y: 1.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -272,7 +272,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_LocalRotation: {x: -0.22975291, y: -0.0000000187227, z: -0.0000000044198294, w: 0.973249}
+  m_LocalRotation: {x: -0.22975291, y: 0.0000000187227, z: 0.0000000044198294, w: 0.973249}
   m_LocalPosition: {x: 9.17, y: 1.55, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -364,7 +364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -490,6 +490,8 @@ MonoBehaviour:
     type: 3}
   gunEndPoint: {fileID: 1094200110}
   gunStartPoint: {fileID: 1793346479}
+  defaultCapacity: 10
+  maxSize: 20
 --- !u!1 &493247904
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,7 +576,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &493247907
 BoxCollider2D:
@@ -618,7 +620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &832575518
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -765,10 +767,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 74668144, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dd15893390e1e18478657fe6cadd4cd7, type: 2}
     - target: {fileID: 1094200109, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
       propertyPath: m_Name
       value: Visual Shoot EndPoint
       objectReference: {fileID: 0}
+    - target: {fileID: 1094200111, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dd15893390e1e18478657fe6cadd4cd7, type: 2}
+    - target: {fileID: 1124308620, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dd15893390e1e18478657fe6cadd4cd7, type: 2}
+    - target: {fileID: 1383843029, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dd15893390e1e18478657fe6cadd4cd7, type: 2}
     - target: {fileID: 1793346478, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
       propertyPath: m_Name
       value: Visual Shoot StartPoint
@@ -777,6 +795,15 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 1793346480, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dd15893390e1e18478657fe6cadd4cd7, type: 2}
+    - target: {fileID: 7072041855344858566, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: dcdecbb32fe31484eb063d48546c90c7, type: 2}
     - target: {fileID: 7072041855807500890, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb,
         type: 3}
       propertyPath: m_Name
@@ -785,7 +812,7 @@ PrefabInstance:
     - target: {fileID: 7072041855807500891, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7072041855807500891, guid: 5ab0e2a1f6741df4db2d6d8d660c2ebb,
         type: 3}
