@@ -9,7 +9,7 @@ public class CharacterMoveController : MonoBehaviour
     [SerializeField] float moveSpeed;
 
     Rigidbody2D myRd;
-    bool isHitToGround;
+    bool canJump;
 
     private void Awake()
     {
@@ -35,21 +35,21 @@ public class CharacterMoveController : MonoBehaviour
 
     private void JumpControll()
     {
-       if (Input.GetKeyDown(KeyCode.Space) && isHitToGround)
-       {
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        {
             myRd.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
-       }
+        }
     }
 
     private void MoveControll()
     {
-        var position = transform.position * Input.GetAxis("Horizontal");
-        transform.position += position * moveSpeed* Time.deltaTime;
+        float horizontalMove = Input.GetAxis("Horizontal");
+        myRd.velocity=new Vector2(horizontalMove*moveSpeed,myRd.velocity.y);
     }
     
     private void IsCollideToGround(object sender, CharacterCollideToGround e)
     {
-        isHitToGround=e.isHitToGround;
+        canJump=e.isHitToGround;
     }
 
 }
