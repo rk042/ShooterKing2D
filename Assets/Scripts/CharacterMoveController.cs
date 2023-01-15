@@ -44,6 +44,14 @@ public class CharacterMoveController : MonoBehaviour
     private void MoveControll()
     {
         float horizontalMove = Input.GetAxis("Horizontal");
+        if (horizontalMove<0)
+        {
+            transform.localScale=new Vector3(-1,2,1);
+        }
+        else if(horizontalMove>0)
+        {
+            transform.localScale=new Vector3(1,2,1);
+        }
         myRd.velocity=new Vector2(horizontalMove*moveSpeed,myRd.velocity.y);
     }
     
