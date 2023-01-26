@@ -41,7 +41,7 @@ public class Enemie : MonoBehaviour
         if (other.collider.CompareTag(Tags.Ground.ToString()))
         {
             isStartGame=true;
-            UIManager.ShakeScreen();
+            // UIManager.ShakeScreen();
         }
         else
         {
