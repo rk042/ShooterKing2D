@@ -2,30 +2,76 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class UIManager : MonoBehaviour
 {
     private static UIManager instance;
-    [SerializeField] TextMeshProUGUI txtScoreCount;
-    [SerializeField] Cinemachine.CinemachineImpulseSource cinemachineImpulse;
-    [SerializeField] AudioSource audioSourceVFX;
-    [SerializeField] AudioSource audioSourceBg;
-    [SerializeField] AudioSource audioSourcePlayer;
-    [SerializeField] AudioClip playerShoot;
-    [SerializeField] AudioClip enemieSound;
-    [SerializeField] AudioClip levelUp;
 
-    public static int scoreCount{get;private set;}
+    [SerializeField] TextMeshProUGUI txtScoreCount;
+    [SerializeField] TextMeshProUGUI txtPlayerHeath;
+    [SerializeField] TextMeshProUGUI txtPlayerCoin;
+    [SerializeField] Cinemachine.CinemachineImpulseSource cinemachineImpulse;
+    
+    [SerializeField] GameOverScreen gameOverScreen;
+    [SerializeField] SOLevel SOLevel;
+
+    private int scoreCount { get; set;}
+
+    private LevelCompleteSystem levelCompleteSystem;
 
     private void Awake()
     {
-        instance=this;
+        if (instance==null)
+        {
+            instance = this;
+        }
+    }
+    private void Start()
+    {
+        levelCompleteSystem = FindObjectOfType<LevelCompleteSystem>();
+
+        UpdateScoreUI(100);
+        UpdateCoinUI(GameManager.Instance.SaveLoadCoin);
+    }
+
+    private void OnEnable()
+    {
+        GameManager.Instance.CoinUpdate += Instance_CoinUpdate;
+        GameManager.Instance.PlayerHealthChange += PlayerHeathChange;
+    }
+    private void OnDisable()
+    {
+        GameManager.Instance.CoinUpdate -= Instance_CoinUpdate;
+        GameManager.Instance.PlayerHealthChange -= PlayerHeathChange;
+    }
+
+    private void Instance_CoinUpdate(int obj)
+    {
+        UpdateCoinUI(obj);
+    }
+
+    private void UpdateCoinUI(int obj)
+    {
+        txtPlayerCoin.text = $"Coin {obj}";
+    }
+
+    private void PlayerHeathChange(int obj)
+    {
+        UpdateScoreUI(obj);
+    }
+
+    private void UpdateScoreUI(int obj)
+    {
+        txtPlayerHeath.text = $"Health : {obj}";
     }
 
     public static void UpdateScore()
     {
-        scoreCount++;
-        instance.txtScoreCount.text=$"Killed : {scoreCount}";
+        instance.scoreCount++;
+        instance.txtScoreCount.text=$"Score : {instance.scoreCount}";
+
+        instance.levelCompleteSystem.UpdateLevelSlider(instance.scoreCount);
     }
 
     public static void ShakeScreen()
@@ -33,17 +79,9 @@ public class UIManager : MonoBehaviour
         instance.cinemachineImpulse.GenerateImpulse();
     }
 
-    public static void VFXSoundPlayer()
+    public static void GameOver(string message)
     {
-        instance.audioSourcePlayer.PlayOneShot(instance.playerShoot);
-    }
-    public static void VFXEnemie()
-    {
-        instance.audioSourceVFX.PlayOneShot(instance.enemieSound);
-    }
-
-    public static void VFXLevelUp()
-    {
-        instance.audioSourceVFX.PlayOneShot(instance.levelUp);
+        GameManager.Instance.State = GameState.GameOver;
+        instance.gameOverScreen.ShowScreen(message);
     }
 }

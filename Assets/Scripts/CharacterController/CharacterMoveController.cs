@@ -2,60 +2,58 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-public class CharacterMoveController : CharacterController
+public class CharacterMoveController : MonoBehaviour, ICharacterJump
 {
     [SerializeField] float jumpForce;
     [SerializeField] float moveSpeed;
 
     Rigidbody2D myRd;
-    bool canJump;
+
+    private int DoubleJump = 0;
 
     private void Awake()
     {
-        myRd=GetComponent<Rigidbody2D>();
+        myRd = GetComponent<Rigidbody2D>();
     }
-    
-    private void OnEnable()
+    private void Update()
     {
-        CharacterController.Event_IsCharactCollideToGround+=IsCollideToGround;   
+        if (GameManager.Instance.State == GameState.GameOver)
+        {
+            return;    
+        }
+
+        MoveControll();
+        JumpControll();
     }
-   
-    private void OnDisable()
-    {
-        CharacterController.Event_IsCharactCollideToGround-=IsCollideToGround;  
-    }
-    
+
     private void JumpControll()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetKeyDown(KeyCode.Space) && DoubleJump<2)
         {
-            myRd.AddForce(Vector2.up * jumpForce,ForceMode2D.Impulse);
+            myRd.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            SFXPlayer.SFXJump();
+            DoubleJump++;
         }
     }
 
     private void MoveControll()
     {
         float horizontalMove = Input.GetAxis("Horizontal");
-        if (horizontalMove<0)
+        if (horizontalMove < 0)
         {
-            transform.localScale=new Vector3(-1,2,1);
+            transform.localScale = new Vector3(-1, 2, 1);
         }
-        else if(horizontalMove>0)
+        else if (horizontalMove > 0 )
         {
-            transform.localScale=new Vector3(1,2,1);
+            transform.localScale = new Vector3(1, 2, 1);
         }
-        myRd.velocity=new Vector2(horizontalMove*moveSpeed,myRd.velocity.y);
-    }
-    
-    private void IsCollideToGround(object sender, CharacterCollideToGround e)
-    {
-        canJump=e.isHitToGround;
+        myRd.velocity = new Vector2(horizontalMove * moveSpeed, myRd.velocity.y);
     }
 
-    public override void UpdateBase()
+    void ICharacterJump.HitGround()
     {
-        MoveControll();
-        JumpControll();
+        DoubleJump = 0;
     }
 }
